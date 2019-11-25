@@ -1,6 +1,7 @@
 package org.itstep.msk.app.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -23,9 +24,15 @@ public class User {
     @Column(name = "profilepicture")
     private String profilepicture;
 
-    public User(){
+    @ManyToMany(targetEntity = Event.class)
+    @JoinTable(
+            name = "usersevents",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "event_id", referencedColumnName = "id")}
+    )
+    private Set<Event> events;
 
-    }
+    public User(){}
 
     public User(String firstName, String lastName, Integer vkid) {
 //        this.id = id;
@@ -72,5 +79,13 @@ public class User {
 
     public void setProfilepicture(String profilepicture) {
         this.profilepicture = profilepicture;
+    }
+
+    public Set<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Set<Event> events) {
+        this.events = events;
     }
 }

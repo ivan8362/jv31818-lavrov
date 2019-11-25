@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Event manager | Home</title>
 </head>
 <body>
     <p>Welcome to the event manager!</p>
-    <a th:href="@{v1/users/signin}" title = "Sign in"/>Log in via vk.com</a>
+    <a href="/v1/users/signin" title = "Sign in">Log in via vk.com</a>
+    <p></p>
+    <a href="/v1/events" title = "list of events">Get list of all events</a>
+    <p></p>
+
 </body>
 </html>

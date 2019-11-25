@@ -1,20 +1,29 @@
 package org.itstep.msk.app.controllers;
 
 import org.itstep.msk.app.entities.Event;
+import org.itstep.msk.app.entities.User;
+import org.itstep.msk.app.repositories.EventRepository;
+import org.itstep.msk.app.repositories.UserRepository;
 import org.itstep.msk.app.services.impl.EventsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/v1/events")
 public class EventController {
+    @Autowired
+    private EventRepository eventRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private EventsService eventsService;
@@ -27,14 +36,42 @@ public class EventController {
     }
 
     @PostMapping("/newevent")
-    public String createEvent(){
-        return "redirect:/v1/events";
+    public String createEvent(@ModelAttribute Event event){
+        eventsService.createEvent(event);
+
+        return "redirect:/v1/events/" + event.getId();
     }
 
     @GetMapping
-    public ModelAndView getAllUsers(Map<String, Object> model) {
+    public ModelAndView getAllEvents(Map<String, Object> model) {
         model.put("events", eventsService.getAllEvents());
 
         return new ModelAndView("events", model);
+    }
+
+    @GetMapping("/{id}")
+    public String showApartment(@PathVariable Integer id, Model model) {
+        Optional<Event> event = eventRepository.findById(id);
+
+        model.addAttribute("event", event.orElse(new Event()));
+
+        return "event";
+    }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute Event event, @ModelAttribute Integer userid) {
+        Set<User> users = new HashSet<>();
+        Optional<User> user = userRepository.findById(userid);
+
+        if (user.isPresent()){
+            users.add(user.get());
+        } else {
+            return "error";
+        }
+
+        event.setUsers(users);
+        eventRepository.save(event);
+
+        return "redirect:/v1/events/" + event.getId();
     }
 }

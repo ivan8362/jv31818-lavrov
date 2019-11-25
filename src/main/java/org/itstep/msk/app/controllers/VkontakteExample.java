@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -20,8 +21,10 @@ public class VkontakteExample {
 
     @GetMapping(value = "/signin")
     @SuppressWarnings("PMD.SystemPrintln")
-    public void vkLogin() throws IOException, InterruptedException, ExecutionException {
+    public String vkLogin() throws IOException, InterruptedException, ExecutionException {
         eventManagerService.createUser();
+
+        return "index";
     }
 
     @GetMapping(value = "/oauthcode")
@@ -32,8 +35,10 @@ public class VkontakteExample {
     }
 
     @GetMapping(value = "/")
-    public String mainPage(){
-        return "index";
+    public ModelAndView mainPage(){
+        ModelAndView modelAndView = new ModelAndView("index");
+
+        return modelAndView;
     }
 
     /*@ResponseStatus(value = HttpStatus.OK)

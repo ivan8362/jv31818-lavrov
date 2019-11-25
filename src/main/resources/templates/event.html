@@ -2,41 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>All events</title>
+    <title>An Event</title>
 </head>
 <body>
-<!--
-<div>
-    {{#users}}
-    <p>{{id}}</p>
-    <p>{{firstName}}</p>
-    <p>{{lastName}}</p>
-    <p>{{vkid}}</p>
-    <img src="{{profilepicture}}" alt = "pic from vk"/>
-    {{/users}}
-</div>
--->
 <table>
     <thead>
     <tr>
-        <th> List of all events </th>
+        <th> An Event </th>
     </tr>
     </thead>
     <tbody>
     <tr>
         <th>id</th>
         <th>name</th>
-        <th>eventdate</th>
+        <th>event date</th>
     </tr>
 
     <tr>
-        {{#events}}
+        {{#event}}
         <td><span > {{id}} </span></td>
         <td><span > {{name}} </span></td>
         <td><span > {{eventdate}} </span></td>
-        {{/events}}
+        {{/event}}
     </tr>
     </tbody>
 </table>
+
+<form action="/v1/events/register" method="post">
+    <p>
+        Event ID: <input type="number" name="eventid"/>
+    </p>
+    <p>
+        Attendee ID: <input type="number" name="userid"/>
+    </p>
+    <button type="submit">Register for event</button>
+</form>
 </body>
 </html>

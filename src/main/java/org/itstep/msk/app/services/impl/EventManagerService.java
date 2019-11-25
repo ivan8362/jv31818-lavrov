@@ -78,8 +78,8 @@ public class EventManagerService implements EventManagerApi {
         System.out.println("Got the Access Token!");
         System.out.println("(The raw response looks like this: " + accessToken.getRawResponse() + "')");
         if (accessToken instanceof VKOAuth2AccessToken) {
-            System.out.println("it's a VKOAuth2AccessToken, it has email field = '"
-                    + ((VKOAuth2AccessToken) accessToken).getEmail() + "'.");
+            /*System.out.println("it's a VKOAuth2AccessToken, it has email field = '"
+                    + ((VKOAuth2AccessToken) accessToken).getEmail() + "'.");*/
         }
         System.out.println();
 
@@ -117,7 +117,6 @@ public class EventManagerService implements EventManagerApi {
     }
 
     public void addProfilePicture(OAuth20Service service, OAuth2AccessToken accessToken, User user) {
-
         final OAuthRequest request = new OAuthRequest(Verb.GET, PROTECTED_RESOURCE_URL_PIC);
         service.signRequest(accessToken, request);
 
@@ -137,6 +136,7 @@ public class EventManagerService implements EventManagerApi {
 
     public Iterable<User> getAllUsers(){
         Iterable<User> users = this.userRepository.findAll();
+
         return users;
     }
 }

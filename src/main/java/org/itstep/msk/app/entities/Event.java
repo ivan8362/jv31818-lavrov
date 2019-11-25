@@ -1,35 +1,46 @@
 package org.itstep.msk.app.entities;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Calendar;
+import java.util.Set;
 
 @Entity
 @Table(name = "events")
 public class Event {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "eventdate")
-    private Calendar date;
+    private Date eventdate;
+
+    @ManyToMany(targetEntity = User.class)
+    @JoinTable(
+            name = "usersevents",
+            joinColumns = {@JoinColumn(name = "event_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
+    )
+    private Set<User> users;
 
     public Event (){}
 
-    public Event(Integer id, String name, Calendar date) {
-        Id = id;
+    public Event(Integer id, String name, Date eventdate) {
+        this.id = id;
         this.name = name;
-        this.date = date;
+        this.eventdate = eventdate;
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -40,11 +51,19 @@ public class Event {
         this.name = name;
     }
 
-    public Calendar getDate() {
-        return date;
+    public Date getEventdate() {
+        return eventdate;
     }
 
-    public void setDate(Calendar date) {
-        this.date = date;
+    public void setEventdate(Date eventdate) {
+        this.eventdate = eventdate;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

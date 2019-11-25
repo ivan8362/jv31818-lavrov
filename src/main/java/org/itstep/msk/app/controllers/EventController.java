@@ -58,8 +58,10 @@ public class EventController {
         return "event";
     }
 
-    @PostMapping("/register")
-    public String register(@ModelAttribute Event event, @ModelAttribute Integer userid) {
+    @PostMapping("/register/{eventid}")
+    public String register(
+            @ModelAttribute Integer userid,
+            @RequestParam Integer eventid) {
         Set<User> users = new HashSet<>();
         Optional<User> user = userRepository.findById(userid);
 
@@ -69,9 +71,15 @@ public class EventController {
             return "error";
         }
 
-        event.setUsers(users);
-        eventRepository.save(event);
+        Optional<Event> event = eventRepository.findById(eventid);
 
-        return "redirect:/v1/events/" + event.getId();
+        if (event.isPresent()){
+            event.get().setUsers(users);
+            eventRepository.save(event.get());
+        } else {
+            return "error";
+        }
+
+        return "redirect:/v1/events/" + event.get().getId();
     }
 }

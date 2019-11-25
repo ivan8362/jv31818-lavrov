@@ -27,8 +27,9 @@
     </tr>
     </tbody>
 </table>
-
-<form action="/v1/events/register" method="post">
+{{#event}}
+<form action="/v1/events/register/{{id}}" method="post">
+{{/event}}
     <p>
         Event ID: <input type="number" name="eventid"/>
     </p>

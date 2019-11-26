@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 
 @Controller
 @RequestMapping("v1/users")
-public class VkontakteExample {
+public class VkontakteController {
     private String code;
 
     @Autowired
@@ -27,6 +27,7 @@ public class VkontakteExample {
         return "index";
     }
 
+    // todo
     @GetMapping(value = "/oauthcode")
     public String callbackPage(@RequestParam String code){
         this.code = code;
@@ -40,12 +41,4 @@ public class VkontakteExample {
 
         return modelAndView;
     }
-
-    /*@ResponseStatus(value = HttpStatus.OK)
-    @GetMapping(value = "/all")
-    public Iterable<User> getAllUsers(Model model){
-        model.addAttribute("users", eventManagerService.getAllUsers());
-
-        return eventManagerService.getAllUsers();
-    }*/
 }

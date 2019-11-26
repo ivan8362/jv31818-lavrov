@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All events</title>
+</head>
+<body>
+<!--
+<div>
+    {{#users}}
+    <p>{{id}}</p>
+    <p>{{firstName}}</p>
+    <p>{{lastName}}</p>
+    <p>{{vkid}}</p>
+    <img src="{{profilepicture}}" alt = "pic from vk"/>
+    {{/users}}
+</div>
+-->
+<table>
+    <thead>
+    <tr>
+        <th> List of all events </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>eventdate</th>
+    </tr>
+
+    <tr>
+        {{#events}}
+        <td><span > {{id}} </span></td>
+        <td><span > {{name}} </span></td>
+        <td><span > {{eventdate}} </span></td>
+        {{/events}}
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

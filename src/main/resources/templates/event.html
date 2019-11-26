@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>An Event</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th> An Event </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>event date</th>
+    </tr>
+
+    <tr>
+        {{#event}}
+        <td><span > {{id}} </span></td>
+        <td><span > {{name}} </span></td>
+        <td><span > {{eventdate}} </span></td>
+        {{/event}}
+    </tr>
+    </tbody>
+</table>
+{{#event}}
+<form action="/v1/events/register/{{id}}" method="post">
+{{/event}}
+    <p>
+        Event ID: <input type="number" name="eventid"/>
+    </p>
+    <p>
+        Attendee ID: <input type="number" name="userid"/>
+    </p>
+    <button type="submit">Register for event</button>
+</form>
+</body>
+</html>

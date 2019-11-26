@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+</head>
+<body>
+<p>Hi! Please insert an event information here:</p>
+<form action="/v1/events/newevent" method="post">
+    <p>
+        name: <input type="text" name="name"/>
+    </p><p>
+        eventdate MM/DD/YYYY: <input type="date" name="eventdate"/>
+    </p>
+    <button type="submit">Save event</button>
+</form>
+<a href="/v1/users/" title = "home page">Home page</a>
+</body>
+</html>

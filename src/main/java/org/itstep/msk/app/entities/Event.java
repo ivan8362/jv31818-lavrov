@@ -2,7 +2,6 @@ package org.itstep.msk.app.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Calendar;
 import java.util.Set;
 
 @Entity

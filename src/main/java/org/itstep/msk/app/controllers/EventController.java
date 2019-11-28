@@ -61,7 +61,7 @@ public class EventController {
     @PostMapping("/register/{eventid}")
     public String register(
             @ModelAttribute Integer userid,
-            @RequestParam Integer eventid) {
+            @ModelAttribute Integer eventid) {
         Set<User> users = new HashSet<>();
         Optional<User> user = userRepository.findById(userid);
 

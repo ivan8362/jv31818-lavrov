@@ -13,9 +13,9 @@
     </thead>
     <tbody>
     <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>event date</th>
+        <th>ID</th>
+        <th>Event Name</th>
+        <th>Event date</th>
     </tr>
 
     <tr>
@@ -27,8 +27,10 @@
     </tr>
     </tbody>
 </table>
+
+<p>Fill this form to register for the event:</p>
 {{#event}}
-<form action="/v1/events/register/{{id}}" method="post">
+<form action="/events/register/{{id}}" method="post">
 {{/event}}
     <p>
         Event ID: <input type="number" name="eventid"/>
@@ -38,5 +40,6 @@
     </p>
     <button type="submit">Register for event</button>
 </form>
+<a href="/users" title = "home page">Home page</a>
 </body>
 </html>

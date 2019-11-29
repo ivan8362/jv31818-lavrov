@@ -3,26 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>All users</title>
+    <style>
+table {
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid #999;
+    padding: 5px;
+}
+</style>
 </head>
 <body>
-<!--
-<div>
-    {{#users}}
-    <p>{{id}}</p>
-    <p>{{firstName}}</p>
-    <p>{{lastName}}</p>
-    <p>{{vkid}}</p>
-    <img src="{{profilepicture}}" alt = "pic from vk"/>
-    {{/users}}
-</div>
--->
+<h2>List of all users</h2>
 <table>
-    <thead>
-    <tr>
-        <th> List of all users </th>
-    </tr>
-    </thead>
-    <tbody>
     <tr>
         <th>id</th>
         <th>first name</th>
@@ -30,18 +24,16 @@
         <th>vk id</th>
         <th>profile picture</th>
     </tr>
-
+    {{#users}}
     <tr>
-        {{#users}}
         <td><span > {{id}} </span></td>
         <td><span > {{firstName}} </span></td>
         <td><span > {{lastName}} </span></td>
         <td><span > {{vkid}} </span></td>
-        <td><span > <img src="{{profilepicture}}" alt = "pic from vk"/> </span></td>
-        {{/users}}
+        <td><span > <img src="{{profilepicture}}" alt = "picture from vk.com"/> </span></td>
     </tr>
-    </tbody>
+    {{/users}}
 </table>
-
+<a href="/users" title = "home page">Home page</a>
 </body>
 </html>

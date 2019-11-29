@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 @Controller
-@RequestMapping("v1/users")
+@RequestMapping("/users")
 public class VkontakteController {
     private String code;
 
@@ -35,7 +35,7 @@ public class VkontakteController {
         return "callback";
     }
 
-    @GetMapping(value = "/")
+    @GetMapping
     public ModelAndView mainPage(){
         ModelAndView modelAndView = new ModelAndView("index");
 

@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/v1/events")
+@RequestMapping("/events")
 public class EventController {
     @Autowired
     private EventRepository eventRepository;
@@ -39,7 +39,7 @@ public class EventController {
     public String createEvent(@ModelAttribute Event event){
         eventsService.createEvent(event);
 
-        return "redirect:/v1/events/" + event.getId();
+        return "redirect:/events/" + event.getId();
     }
 
     @GetMapping
@@ -80,6 +80,6 @@ public class EventController {
             return "error";
         }
 
-        return "redirect:/v1/events/" + event.get().getId();
+        return "redirect:/events/" + event.get().getId();
     }
 }

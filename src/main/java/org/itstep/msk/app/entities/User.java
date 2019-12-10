@@ -1,6 +1,7 @@
 package org.itstep.msk.app.entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,18 +25,12 @@ public class User {
     @Column(name = "profilepicture")
     private String profilepicture;
 
-    @ManyToMany(targetEntity = Event.class)
-    @JoinTable(
-            name = "usersevents",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "event_id", referencedColumnName = "id")}
-    )
-    private Set<Event> events;
+    @ManyToMany(mappedBy = "users")
+    private Set<Event> events = new HashSet<>();
 
     public User(){}
 
     public User(String firstName, String lastName, Integer vkid) {
-//        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.vkid = vkid;
@@ -87,5 +82,15 @@ public class User {
 
     public void setEvents(Set<Event> events) {
         this.events = events;
+    }
+
+    public void addEvent(Event event) {
+        this.events.add(event);
+        event.getUsers().add(this);
+    }
+
+    public void removeEvent(Event event) {
+        this.events.remove(event);
+        event.getUsers().remove(this);
     }
 }

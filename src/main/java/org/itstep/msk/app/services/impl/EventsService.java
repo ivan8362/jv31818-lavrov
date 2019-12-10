@@ -2,11 +2,12 @@ package org.itstep.msk.app.services.impl;
 
 import org.itstep.msk.app.entities.Event;
 import org.itstep.msk.app.repositories.EventRepository;
+import org.itstep.msk.app.services.EventApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EventsService {
+public class EventsService implements EventApi {
 
     @Autowired
     private EventRepository eventRepository;
@@ -21,5 +22,4 @@ public class EventsService {
 
         return event;
     }
-
 }

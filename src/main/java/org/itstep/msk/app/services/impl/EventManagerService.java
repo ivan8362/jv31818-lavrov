@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
@@ -138,5 +139,10 @@ public class EventManagerService implements EventManagerApi {
         Iterable<User> users = this.userRepository.findAll();
 
         return users;
+    }
+
+    public Optional<User> findById(Integer id){
+        Optional<User> user = this.userRepository.findById(id);
+        return user;
     }
 }

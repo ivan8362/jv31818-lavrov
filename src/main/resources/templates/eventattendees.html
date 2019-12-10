@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>An Event</title>
+    <title>Event Attendees List</title>
 </head>
 <body>
 <table>
     <thead>
     <tr>
-        <th> An Event </th>
+        <th> An Event Attendees </th>
     </tr>
     </thead>
     <tbody>
@@ -16,6 +16,7 @@
         <th>ID</th>
         <th>Event Name</th>
         <th>Event date</th>
+        <th>Attendees IDs</th>
     </tr>
 
     <tr>
@@ -24,23 +25,10 @@
         <td><span > {{name}} </span></td>
         <td><span > {{eventdate}} </span></td>
         {{/event}}
+        <td><span > {{users}} </span></td>
+
     </tr>
     </tbody>
 </table>
-
-<p>Fill this form to register for the event:</p>
-{{#event}}
-<form action="/events/register/{{id}}" method="post">
-{{/event}}
-
-    <p>
-        Event ID: <input type="number" name="eventid"/>
-    </p>
-    <p>
-        Attendee ID: <input type="number" name="userid"/>
-    </p>
-    <button type="submit">Register for event</button>
-</form>
-<a href="/users" title = "home page">Home page</a>
 </body>
 </html>

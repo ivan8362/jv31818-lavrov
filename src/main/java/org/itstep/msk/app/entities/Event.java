@@ -2,6 +2,7 @@ package org.itstep.msk.app.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,7 +25,7 @@ public class Event {
             joinColumns = {@JoinColumn(name = "event_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
     )
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
     public Event (){}
 
@@ -64,5 +65,15 @@ public class Event {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public void addUser(User user) {
+        this.users.add(user);
+        user.getEvents().add(this);
+    }
+
+    public void removeUser(User user) {
+        this.users.remove(user);
+        user.getEvents().remove(this);
     }
 }

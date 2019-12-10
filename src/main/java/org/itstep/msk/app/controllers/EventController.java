@@ -11,10 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/events")
@@ -50,7 +47,7 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public String showApartment(@PathVariable Integer id, Model model) {
+    public String showEvent(@PathVariable Integer id, Model model) {
         Optional<Event> event = eventRepository.findById(id);
 
         model.addAttribute("event", event.orElse(new Event()));
@@ -58,28 +55,44 @@ public class EventController {
         return "event";
     }
 
+    @GetMapping("/{id}/users")
+    public String showEventAttendees(@PathVariable Integer id, Model model) {
+        Optional<Event> event = eventRepository.findById(id);
+
+        model.addAttribute("event", event.orElse(new Event()));
+
+        Set<Integer> users = eventRepository.findUsersForEvent(event.get().getId());
+        List<String> intString = new ArrayList<>();
+
+        for (Integer i : users) {
+            intString.add(String.valueOf(i));
+        }
+
+        String usersString = String.join(", ", intString);
+        model.addAttribute("users", usersString);
+
+        return "eventattendees";
+    }
+
     @PostMapping("/register/{eventid}")
     public String register(
-            @ModelAttribute Integer userid,
-            @ModelAttribute Integer eventid) {
-        Set<User> users = new HashSet<>();
-        Optional<User> user = userRepository.findById(userid);
+            /*@ModelAttribute User user,
+            @ModelAttribute Event event*/
+            @RequestParam Integer userid,
+            @RequestParam Integer eventid
+    ) {
+        Optional<User> userFromRepo = userRepository.findById(userid);
+        Optional<Event> eventFromRepo = eventRepository.findById(eventid);
 
-        if (user.isPresent()){
-            users.add(user.get());
+        if (userFromRepo.isPresent() && eventFromRepo.isPresent()){
+            eventFromRepo.get().addUser(userFromRepo.get());
+            userFromRepo.get().addEvent(eventFromRepo.get());
+            eventRepository.save(eventFromRepo.get());
+            userRepository.save(userFromRepo.get());
         } else {
             return "error";
         }
 
-        Optional<Event> event = eventRepository.findById(eventid);
-
-        if (event.isPresent()){
-            event.get().setUsers(users);
-            eventRepository.save(event.get());
-        } else {
-            return "error";
-        }
-
-        return "redirect:/events/" + event.get().getId();
+        return "redirect:/events/" + eventFromRepo.get().getId();
     }
 }
